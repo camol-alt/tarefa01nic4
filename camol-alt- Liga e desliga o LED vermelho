@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+#include "pico/stdlib.h"
+
+const uint led pin red 12;
+
+const uint button 0 = 6;
+
+static volatile uint a = 1;
+
+static void gpio_irq_handler(uint gpio, uint32 t events);
+
+int main(){
+
+stdio init all();
+
+gpio_init(led_pin_red);
+
+gpio_init(button_0);
+
+gpio_set_dir(button B, GPIO_IN);
+
+gpio_set_dir(led_pin_red, GPTO OUT);
+
+gpio_pull_up(button_0);
+
+gpio_set_irq_enabled_with_callback(button e, GPTO_TRQ_EDGE FALL, true, &gpio_irq_handler);
+
+while (true);
+}
+void gpio_irq_handler(uint gpio, uint32_t events){
+a++;
+
+if (a % 2 == 0)
+gpio_put(led_pin_red, true);
+else
+gpio_put(led_pin_red, false);
+}
